@@ -17,6 +17,9 @@ export default function Header() {
           <Link to={"/about"}>
             <li className="text-slat-700 hover:underline">About</li>
           </Link>
+          <Link to={"/member"}>
+            <li className="text-slat-700 hover:underline">Member</li>
+          </Link>
         </ul>
       </div>
     </header>

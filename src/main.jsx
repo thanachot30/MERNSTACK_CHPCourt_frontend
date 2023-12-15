@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./page/Home.jsx";
 import About from "./page/About.jsx";
 import Header from "./component/Header.jsx";
+import Member from "./page/Member.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
+      <Route path="/member" element={<Member />} />
     </Routes>
   </BrowserRouter>
 );

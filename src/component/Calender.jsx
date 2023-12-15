@@ -9,9 +9,6 @@ export default function Calender() {
     contextValue.setDate(formattedDate);
   };
 
-  const handleDate = () => {
-    console.log("date");
-  };
   console.log(contextValue);
   return (
     <div>
@@ -28,9 +25,6 @@ export default function Calender() {
           //     .split("T")[0]
           // }
         />
-        <div>
-          <span className="text-red-700">DATE SELETE {contextValue.date}</span>
-        </div>
       </div>
     </div>
   );

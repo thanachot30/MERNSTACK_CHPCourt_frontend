@@ -1,7 +1,8 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import Calender from "./Calender";
 import BookModal from "./Modal/BookModal";
-
+import dotenv from "dotenv";
+dotenv.config();
 const initialSchedule = [
   //each date
   {
@@ -158,7 +159,6 @@ export default function Timetable() {
     }, []);
   };
   const courtsData = groupByCourt(initialSchedule);
-  console.log(courtsData);
 
   const handleOnBook = (start, end, court) => {
     console.log(start, court);
@@ -166,6 +166,12 @@ export default function Timetable() {
     setShowmodal(true);
   };
   const handleClose = () => setShowmodal(false);
+
+  useEffect(async () => {
+    const url = process.env.API_URL;
+    const response = await axios.get(url + `/api/booking/date/'${date}'`);
+    const data = response.data;
+  }, [date]);
 
   return (
     <CalenderContext.Provider value={{ date: date, setDate: setDate }}>

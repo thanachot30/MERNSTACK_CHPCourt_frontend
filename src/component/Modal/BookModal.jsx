@@ -1,7 +1,8 @@
-import React from "react";
-
+import React, { memo, useEffect, useState } from "react";
+import axios from "axios";
 export default function BookModal({ visible, onclose, select }) {
   if (!visible) return null;
+  const [members, setmembers] = useState([]);
   const handleOnclose = () => {
     onclose();
   };
@@ -13,6 +14,32 @@ export default function BookModal({ visible, onclose, select }) {
     handleOnclose();
   };
 
+  const getmember = async () => {
+    try {
+      const url = "http://localhost:8000";
+      try {
+        const response = await axios.get(url + "/api/member", {
+          headers: {
+            "Content-Type": "application/json",
+            OATH: "Gupp",
+          },
+        });
+        const data = response.data;
+        setmembers(data);
+        return;
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getmember();
+  }, []);
+
+  console.log(members);
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
       <div className="bg-white p-2 rounded flex flex-col">
@@ -33,15 +60,28 @@ export default function BookModal({ visible, onclose, select }) {
         </div>
         <div>
           <form className="flex flex-col gap-2 " onSubmit={handleSubmit}>
-            <input
-              className="border rounded px-5 h-8"
-              type="text"
-              placeholder="Name Booker"
-            />
-            <input
-              type="submit"
-              className="border rounded hover:bg-slate-200"
-            />
+            <div className="flex">
+              <div className="border rounded px-2 h-8 w-full">
+                <select name="member" id="member" className="w-full">
+                  {members.map((member) => (
+                    <option
+                      key={member.memberId}
+                      className=""
+                      value={member.memberId}
+                    >
+                      {member.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* <input
+                className="border rounded px-2 h-8 w-1/5"
+                type="text"
+                placeholder="Name Booker"
+              /> */}
+            </div>
+            <button className="border">Sumit</button>
           </form>
         </div>
       </div>
